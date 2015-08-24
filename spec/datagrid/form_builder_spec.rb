@@ -56,13 +56,13 @@ describe Datagrid::FormBuilder do
         end
       }
       it { should equal_to_dom(
-        '<input class="group_id integer_filter" id="report_group_id" name="report[group_id]" size="30" type="text"/>'
+        '<input class="group_id integer_filter" id="report_group_id" name="report[group_id]" size="30" type="number"/>'
       )}
 
       context "when partials option is passed for filter that don't support range" do
         let(:_filter_options) { {partials: 'anything' } }
         it { should equal_to_dom(
-          '<input class="group_id integer_filter" id="report_group_id" name="report[group_id]" size="30" type="text"/>'
+          '<input class="group_id integer_filter" id="report_group_id" name="report[group_id]" size="30" type="number"/>'
         )}
       end
     end
@@ -103,27 +103,27 @@ describe Datagrid::FormBuilder do
         let(:_filter_options) { {:id => "hello"} }
         let(:_range) { [1,2]}
         it { should equal_to_dom(
-          '<input class="group_id integer_filter from" id="from_hello" multiple name="report[group_id][]" size="30" type="text" value="1"/>' +
+          '<input class="group_id integer_filter from" id="from_hello" multiple name="report[group_id][]" size="30" type="number" value="1"/>' +
           '<span class="separator integer"> - </span>' +
-          '<input class="group_id integer_filter to" id="to_hello" multiple name="report[group_id][]" size="30" type="text" value="2"/>'
+          '<input class="group_id integer_filter to" id="to_hello" multiple name="report[group_id][]" size="30" type="number" value="2"/>'
         )}
       end
       context "with only left bound" do
         
         let(:_range) { [10, nil]}
         it { should equal_to_dom(
-          '<input class="group_id integer_filter from" multiple name="report[group_id][]" size="30" type="text" value="10"/>' +
+          '<input class="group_id integer_filter from" multiple name="report[group_id][]" size="30" type="number" value="10"/>' +
           '<span class="separator integer"> - </span>' +
-          '<input class="group_id integer_filter to" multiple name="report[group_id][]" size="30" type="text"/>'
+          '<input class="group_id integer_filter to" multiple name="report[group_id][]" size="30" type="number"/>'
         )}
         it { should be_html_safe }
       end
       context "with only right bound" do
         let(:_range) { [nil, 10]}
         it { should equal_to_dom(
-          '<input class="group_id integer_filter from" multiple name="report[group_id][]" size="30" type="text"/>' +
+          '<input class="group_id integer_filter from" multiple name="report[group_id][]" size="30" type="number"/>' +
           '<span class="separator integer"> - </span>' +
-          '<input class="group_id integer_filter to" multiple name="report[group_id][]" size="30" type="text" value="10"/>'
+          '<input class="group_id integer_filter to" multiple name="report[group_id][]" size="30" type="number" value="10"/>'
         )}
         it { should be_html_safe }
       end
@@ -131,9 +131,9 @@ describe Datagrid::FormBuilder do
       context "with invalid range value" do
         let(:_range) { 2..1 }
         it { should equal_to_dom(
-          '<input class="group_id integer_filter from" multiple name="report[group_id][]" size="30" type="text" value="2"/>' +
+          '<input class="group_id integer_filter from" multiple name="report[group_id][]" size="30" type="number" value="2"/>' +
           '<span class="separator integer"> - </span>' +
-          '<input class="group_id integer_filter to" multiple name="report[group_id][]" size="30" type="text" value="1"/>'
+          '<input class="group_id integer_filter to" multiple name="report[group_id][]" size="30" type="number" value="1"/>'
         )}
       end
 
@@ -149,7 +149,7 @@ describe Datagrid::FormBuilder do
         let(:_filter_options) { { :partials => 'not_existed' } }
         let(:_range) { nil }
         it { should equal_to_dom(
-          '<input class="group_id integer_filter from" multiple name="report[group_id][]" size="30" type="text"><span class="separator integer"> - </span><input class="group_id integer_filter to" multiple name="report[group_id][]" size="30" type="text">'
+          '<input class="group_id integer_filter from" multiple name="report[group_id][]" size="30" type="number"><span class="separator integer"> - </span><input class="group_id integer_filter to" multiple name="report[group_id][]" size="30" type="number">'
         ) }
         
       end
@@ -164,7 +164,7 @@ describe Datagrid::FormBuilder do
           end
         end
         it { should equal_to_dom(
-          'from <input class="group_id integer_filter from" multiple name="report[group_id][]" size="30" type="text"> to <input class="group_id integer_filter to" multiple name="report[group_id][]" size="30" type="text">'
+          'from <input class="group_id integer_filter from" multiple name="report[group_id][]" size="30" type="number"> to <input class="group_id integer_filter to" multiple name="report[group_id][]" size="30" type="number">'
         )}
       end
       context "when deprecated separator is specified" do
@@ -177,7 +177,7 @@ describe Datagrid::FormBuilder do
           end
         end
         it { should equal_to_dom(
-          '<input class="group_id integer_filter from" multiple name="report[group_id][]" size="30" type="text"> | <input class="group_id integer_filter to" multiple name="report[group_id][]" size="30" type="text">'
+          '<input class="group_id integer_filter from" multiple name="report[group_id][]" size="30" type="number"> | <input class="group_id integer_filter to" multiple name="report[group_id][]" size="30" type="number">'
         )}
       end
     end
